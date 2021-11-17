@@ -12,10 +12,10 @@ class ProductCategory extends Model
     protected $fillable = ['product_id', 'category_id'];
 
     public function products(){
-        return $this->belongsToMany(App\Models\Product::class);
+        return $this->belongsToMany(Product::class);
     }
 
     public function categories(){
-        return $this->belongsToMany(App\Models\Category::class);
+        return $this->hasMany(Category::class);
     }
 }

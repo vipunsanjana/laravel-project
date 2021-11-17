@@ -88,6 +88,7 @@ class CategoryController extends Controller
         if(count($category->subcategory))
         {
             $subcategories = $category->subcategory;
+            //make sub categories as main categories
             foreach($subcategories as $cat)
             {
                 $cat = Category::findOrFail($cat->id);

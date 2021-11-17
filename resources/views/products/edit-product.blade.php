@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="javascript:void(0);">Add new product</a></li>
 @endsection
 
 @section('content')
@@ -31,27 +31,27 @@
                         <div class="widget-header">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12" style="margin-top:15px;">
-                                    <h4>Add New Category</h4>
+                                    <h4>Add New Product</h4>
                                 </div>
                             </div>
                         </div>
                         <div class="widget-content widget-content-area">
-                            <form method="POST" action="{{ route('createCategory') }}" id="createCategory">
+                            <form method="POST"  id="editProduct">
                                 @csrf
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-6">
-                                        <label for="name">Category Name*</label>
-                                        <input type="text" name="name" class="form-control" placeholder="Category name" value="{{old('name')}}" required />
+                                        <label for="name">Product Name*</label>
+                                        <input type="text" name="name" class="form-control" placeholder="Product name" value="{{$product->name}}" required />
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="email">Category Slug*</label>
-                                        <input type="text" name="slug" class="form-control" placeholder="category-slug" value="{{old('slug')}}" required />
+                                        <label for="email">Product SKU*</label>
+                                        <input type="text" name="sku" class="form-control" placeholder="ABC-111" value="{{$product->sku}}" required />
                                     </div>
                                 </div>
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-6">
-                                        <label for="role">Select parent category*</label>
-                                        <select class="selectpicker form-control" style="height: auto !important;" data-live-search="true" name="parent_id" id="parent_id" required>
+                                        <label for="role">Select categories*</label>
+                                        <select class="multiselect multiselect-custom form-control" multiple="multiple" data-live-search="true" name="categories[]" id="categories" required>
                                             <option value="0">None</option>
                                             @if($categories)
                                                 @foreach($categories as $category)
@@ -65,8 +65,24 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-row mb-4">
+                                    <div class="form-group col-md-12">
+                                        <label for="name">Product Description*</label>
+                                        <textarea id="ckeditor" class="form-control" name="description">{{ $product->description }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="container">
+                                    <label for="name">Product Images</label>
+                                    <div class="row" style="clear: both;margin-top: 18px;">
+                                        <div class="col-12">
+                                          <div class="dropzone" id="file-dropzone"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div id="submitDiv">
-                                    <button type="submit" id="submit" class="btn btn-primary mt-3">Create Category</button>
+                                    <button type="submit" id="submit" class="btn btn-primary mt-3">Create Product</button>
                                 </div>
                             </form>
                         </div>
@@ -81,14 +97,55 @@
 
 @section('css')
     <link href="{{ asset('plugins/notification/snackbar/snackbar.min.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-select/bootstrap-select.min.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-select/bootstrap-select.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/multi-select/css/multi-select.css') }}">
     <link href="{{ asset('assets/css/loader.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('assets/js/loader.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    
 @endsection
 
 @section('js')
+<script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script><!-- Ckeditor -->
 <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('plugins/notification/snackbar/snackbar.min.js') }}"></script>
+<script src="{{ asset('assets/js/pages/forms/editors.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"></script>
+<script>
+    Dropzone.options.fileDropzone = {
+      url: '{{ route('images.store') }}',
+      acceptedFiles: ".jpeg,.jpg,.png,.gif",
+      addRemoveLinks: true,
+      maxFilesize: 8,
+      headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+      },
+      removedfile: function(file)
+      {
+        var name = file.upload.filename;
+        $.ajax({
+          type: 'POST',
+          url: '{{ route('image.remove') }}',
+          data: { "_token": "{{ csrf_token() }}", name: name},
+          success: function (data){
+              console.log("File has been successfully removed!!");
+          },
+          error: function(e) {
+              console.log(e);
+          }});
+          var fileRef;
+          return (fileRef = file.previewElement) != null ?
+          fileRef.parentNode.removeChild(file.previewElement) : void 0;
+      },
+      success: function (file, response) {
+        console.log(file);
+      },
+    }
+  </script>
 <script>
     $(document).ready(function(){
         var success = '{{ Session::get('success')}}';

@@ -5,6 +5,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         return view('dashboard');
     });
 
+    //Categroy Routes
     Route::any('category/create', [CategoryController::class, 'createCategory'])->name('createCategory');
 
     Route::get('categories', [CategoryController::class, 'allCategories'])->name('allCategories');
@@ -53,12 +55,19 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::get('category/delete/{id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
 
-
+    //Products routes
     Route::get('products', [ProductController::class, 'allProducts'])->name('allProducts');
 
-    Route::any('products/create', [ProductController::class, 'createProduct'])->name('createProduct');
+    Route::any('product/create', [ProductController::class, 'createProduct'])->name('createProduct');
 
-    Route::get('products/delete/{product_id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
+    Route::get('product/delete/{product_id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
+
+    Route::any('product/edit/{id}', [ProductController::class, 'editProduct'])->name('editProduct');
+
+    //Image upload routes
+    Route::post('product-images', [ProductImageController::class, 'store'])->name('images.store');
+    Route::post('product-images/remove', [ProductImageController::class, 'remvoeFile'])->name('image.remove');
+
 
 });
 

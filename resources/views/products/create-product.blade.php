@@ -73,7 +73,7 @@
                                 </div>
                                 
                                 <div id="submitDiv">
-                                    <button type="submit" id="submit" class="btn btn-primary mt-3">Create Category</button>
+                                    <button type="submit" id="submit" class="btn btn-primary mt-3">Create Product</button>
                                 </div>
                             </form>
                         </div>
