@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::any('products/create', [ProductController::class, 'createProduct'])->name('createProduct');
 
+    Route::get('products/delete/{product_id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
+
 });
 
 require __DIR__.'/auth.php';

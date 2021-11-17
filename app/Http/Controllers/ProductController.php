@@ -49,4 +49,11 @@ class ProductController extends Controller
             return redirect()->back()->with('success', 'Category has been created successfully.');
         }
     }
+
+    public function deleteProduct($id)
+    {
+        $product = Product::where('id', $id)->delete();
+
+        return redirect()->back()->with('delete', 'Product has been deleted successfully.');
+    }
 }
