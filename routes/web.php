@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +52,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::delete('categories/delete/{category_id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
 
     Route::get('category/delete/{id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
+
+
+    Route::get('products', [ProductController::class, 'allProducts'])->name('allProducts');
 
 });
 

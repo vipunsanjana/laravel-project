@@ -24,7 +24,7 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="products" data-parent="#accordionExample">
                     <li>
-                        <a href="#"> All Products </a>
+                        <a href="{{ route('allProducts') }}"> All Products </a>
                     </li>
                     <li>
                         <a href="#"> Add New product </a>
@@ -52,8 +52,8 @@
             </li>
         </ul>
         <!-- <div class="shadow-bottom"></div> -->
-    
+
     </nav>
-    
+
     </div>
     <!--  END SIDEBAR  -->
