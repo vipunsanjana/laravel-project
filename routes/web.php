@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::get('products', [ProductController::class, 'allProducts'])->name('allProducts');
 
+    Route::any('products/create', [ProductController::class, 'createProduct'])->name('createProduct');
+
 });
 
 require __DIR__.'/auth.php';

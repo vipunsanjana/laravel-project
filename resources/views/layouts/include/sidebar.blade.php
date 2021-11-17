@@ -27,7 +27,7 @@
                         <a href="{{ route('allProducts') }}"> All Products </a>
                     </li>
                     <li>
-                        <a href="#"> Add New product </a>
+                        <a href="{{ route('createProduct') }}"> Add New product </a>
                     </li>
                 </ul>
             </li>
