@@ -45,6 +45,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::any('category/create', [CategoryController::class, 'createCategory'])->name('createCategory');
 
+    Route::get('categories', [CategoryController::class, 'allCategories'])->name('allCategories');
+
+    Route::any('category/edit/{id}', [CategoryController::class, 'editCategory'])->name('editCategory');
+
+    Route::delete('categories/delete/{category_id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
+
+    Route::get('category/delete/{id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
+
 });
 
 require __DIR__.'/auth.php';

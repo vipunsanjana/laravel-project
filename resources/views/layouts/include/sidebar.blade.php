@@ -43,7 +43,7 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="categories" data-parent="#accordionExample">
                     <li>
-                        <a href="#"> All Categories </a>
+                        <a href="{{ route('allCategories') }}"> All Categories </a>
                     </li>
                     <li>
                         <a href="{{ route('createCategory') }}"> Add New Category </a>

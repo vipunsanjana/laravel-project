@@ -36,16 +36,16 @@
                             </div>
                         </div>
                         <div class="widget-content widget-content-area">
-                            <form method="POST" action="{{ route('createCategory') }}" id="createCategory">
+                            <form method="POST" id="createCategory">
                                 @csrf
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-6">
                                         <label for="name">Category Name*</label>
-                                        <input type="text" name="name" class="form-control" placeholder="Category name" value="{{old('name')}}" required />
+                                        <input type="text" name="name" class="form-control" placeholder="Category name" value="{{$category->name}}" required />
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="email">Category Slug*</label>
-                                        <input type="text" name="slug" class="form-control" placeholder="category-slug" value="{{old('slug')}}" required />
+                                        <input type="text" name="slug" class="form-control" placeholder="category-slug" value="{{$category->slug}}" required />
                                     </div>
                                 </div>
                                 <div class="form-row mb-4">
@@ -54,19 +54,19 @@
                                         <select class="selectpicker form-control" style="height: auto !important;" data-live-search="true" name="parent_id" id="parent_id" required>
                                             <option value="0">None</option>
                                             @if($categories)
-                                                @foreach($categories as $category)
-                                                    <?php $dash=''; ?>
-                                                    <option value="{{$category->id}}">{{$category->name}}</option>
-                                                    @if(count($category->subcategory))
-                                                        @include('category.subCategoryList-option',['subcategories' => $category->subcategory])
-                                                    @endif
-                                                @endforeach
-                                            @endif
+                                            @foreach($categories as $item)
+                                                <?php $dash=''; ?>
+                                                <option value="{{$item->id}}" @if($category->parent_id == $item->id ) selected @endif>{{$item->name}}</option>
+                                                @if(count($item->subcategory))
+                                                    @include('category.sub-category-list-option-for-update',['subcategories' => $item->subcategory])
+                                                @endif
+                                            @endforeach
+                                        @endif
                                         </select>
                                     </div>
                                 </div>
                                 <div id="submitDiv">
-                                    <button type="submit" id="submit" class="btn btn-primary mt-3">Create Category</button>
+                                    <button type="submit" id="submit" class="btn btn-primary mt-3">Update Category</button>
                                 </div>
                             </form>
                         </div>
