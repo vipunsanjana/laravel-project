@@ -73,7 +73,7 @@
                                 </div>
 
                                 <div class="container">
-                                    <label for="name">Product Images</label>
+                                    <label for="name">Upload Images</label>
                                     <div class="row" style="clear: both;margin-top: 18px;">
                                         <div class="col-12">
                                           <div class="dropzone" id="file-dropzone"></div>
@@ -82,13 +82,30 @@
                                 </div>
                                 
                                 <div id="submitDiv">
-                                    <button type="submit" id="submit" class="btn btn-primary mt-3">Create Product</button>
+                                    <button type="submit" id="submit" class="btn btn-primary mt-3">Update Product</button>
                                 </div>
                             </form>
+                            <br><br>
+                            @if (count($images)>0)
+                                <div class="container">
+                                    <label for="name">Product Images</label>
+                                    <div class="d-flex">
+                                        <div class="usr-img-frame mr-2">
+                                            
+                                                @foreach ($images as $image)
+                                                    <img alt="avatar" class="img-fluid " src="{{ asset($image->file_path) }}">
+                                                @endforeach
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
+                    
                 </div>
             </div>
+            
         </div>
         <!--  END CONTENT AREA  -->
     </div>
@@ -116,20 +133,22 @@
 <script src="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"></script>
 <script>
+    // var prod_id = {{ json_encode($product->id); }}
     Dropzone.options.fileDropzone = {
-      url: '{{ route('images.store') }}',
+      url: '{{ route('images.store', json_encode($product->id)) }}',
       acceptedFiles: ".jpeg,.jpg,.png,.gif",
-      addRemoveLinks: true,
       maxFilesize: 8,
       headers: {
       'X-CSRF-TOKEN': "{{ csrf_token() }}"
       },
+      addRemoveLinks: true,
       removedfile: function(file)
-      {
+      { 
+        jQuery.noConflict();
         var name = file.upload.filename;
         $.ajax({
           type: 'POST',
-          url: '{{ route('image.remove') }}',
+          url: '{{ route('image.remove',json_encode($product->id)) }}',
           data: { "_token": "{{ csrf_token() }}", name: name},
           success: function (data){
               console.log("File has been successfully removed!!");

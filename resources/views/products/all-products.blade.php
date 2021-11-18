@@ -28,6 +28,7 @@
                                     <thead>
                                         <tr>
                                             <th>S.No.</th>
+                                            <th>Product Image</th>
                                             <th>Product Name</th>
                                             <th>Product SKU</th>
                                             {{-- <th>Product Description</th> --}}
@@ -43,6 +44,13 @@
                                             <tr>
                                                 <?php $dash=''; ?>
                                                 <td>{{$_SESSION['i']}}</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <div class="usr-img-frame mr-2 rounded-circle">
+                                                            <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset(Helper::getProductMainImage($product->id)) }}">
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td>{{$product->name}}</td>
                                                  <td>{{$product->sku}}</td>
                                                  {{-- <td>{{$product->description}}</td> --}}

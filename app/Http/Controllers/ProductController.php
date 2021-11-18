@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductCategory;
+use App\Models\ProductUpload;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -65,7 +66,8 @@ class ProductController extends Controller
         if($request->method()=='GET')
         {
             $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
-            return view('products.edit-product', compact('product', 'categories'));
+            $images = ProductUpload::where('product_id', $id)->get();
+            return view('products.edit-product', compact('product', 'categories','images'));
         }
 
         if($request->method()=='POST')
@@ -93,7 +95,7 @@ class ProductController extends Controller
                     'category_id' => $caretory,
                 ]);
             }
-            return redirect()->back()->with('success', 'Category has been updated successfully.');
+            return redirect()->back()->with('success', 'Product has been updated successfully.');
         }
     }
 }

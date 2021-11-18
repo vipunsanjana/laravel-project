@@ -65,8 +65,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::any('product/edit/{id}', [ProductController::class, 'editProduct'])->name('editProduct');
 
     //Image upload routes
-    Route::post('product-images', [ProductImageController::class, 'store'])->name('images.store');
-    Route::post('product-images/remove', [ProductImageController::class, 'remvoeFile'])->name('image.remove');
+    Route::post('product-images/{product_id}', [ProductImageController::class, 'store'])->name('images.store');
+    Route::post('product-image/remove/{product_id}', [ProductImageController::class, 'remvoeFile'])->name('image.remove');
 
 
 });

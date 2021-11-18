@@ -26,7 +26,7 @@
                         <div class="br-pagebody">
                             <div class="br-section-wrapper">
                                 <div class="welcome_user" style="text-align: center">
-                                    <h1>Welcome <b>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </b> to FriendZone</h1>
+                                    <h1>Welcome <b>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </b> to Layout Index</h1>
                                 </div>
                             </div>
                         </div>
