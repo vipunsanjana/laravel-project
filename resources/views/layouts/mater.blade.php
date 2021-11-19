@@ -14,12 +14,12 @@
 
         <link rel="icon" href="{{ asset('uploads/logo/logo.png') }}" type="image/x-icon">
         <!-- VENDOR CSS -->
-        <link rel="stylesheet" href="{{asset('auth/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{asset('auth/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
-        <link rel="stylesheet" href="{{asset('auth/assets/vendor/animate-css/vivify.min.css') }}">
+        <link rel="stylesheet" href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{asset('assets/vendor/animate-css/vivify.min.css') }}">
 
         <!-- MAIN CSS -->
-        <link rel="stylesheet" href="{{asset('auth/assets/css/site.min.css') }}">
+        <link rel="stylesheet" href="{{asset('assets/css/site.min.css') }}">
 
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
@@ -99,8 +99,8 @@
         <script src="{{ asset('plugins/highlight/highlight.pack.js') }}"></script>
 
         <script src="{{ asset('assets/js/scrollspyNav.js') }}"></script>
-        <!-- <script src="{{ asset('plugins/input-mask/jquery.inputmask.bundle.min.js') }}"></script>
-        <script src="{{ asset('plugins/input-mask/input-mask.js') }}"></script> -->
+        <script src="{{ asset('plugins/input-mask/jquery.inputmask.bundle.min.js') }}"></script>
+        <script src="{{ asset('plugins/input-mask/input-mask.js') }}"></script> 
 
         <script src="{{ asset('plugins/flatpickr/flatpickr.js') }}"></script>
         <script src="{{ asset('plugins/noUiSlider/nouislider.min.js') }}"></script>

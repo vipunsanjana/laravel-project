@@ -15,7 +15,8 @@ class CreateProductPricesTable extends Migration
     {
         Schema::create('product_prices', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id')->nullable()->unsigned();
+            $table->bigInteger('product_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->double('price');
             $table->integer('quantity');
             $table->timestamps();

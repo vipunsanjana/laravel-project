@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="javascript:void(0);">All Categories</a></li>
+    <li class="breadcrumb-item"><a href="javascript:void(0);">All Products</a></li>
 @endsection
 
 @section('content')
@@ -28,10 +28,9 @@
                                     <thead>
                                         <tr>
                                             <th>S.No.</th>
-                                            <th>Product Image</th>
-                                            <th>Product Name</th>
-                                            <th>Product SKU</th>
-                                            {{-- <th>Product Description</th> --}}
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>SKU</th>
                                             <th>Categories</th>
                                             <th>Actions</th>
                                         </tr>
@@ -52,15 +51,18 @@
                                                     </div>
                                                 </td>
                                                 <td>{{$product->name}}</td>
-                                                 <td>{{$product->sku}}</td>
-                                                 {{-- <td>{{$product->description}}</td> --}}
-                                                 <td>
+                                                <td>{{$product->sku}}</td>
+                                                <td>
                                                     @foreach ($product->categories as $key => $category) 
-                                                        <button class="btn btn-primary">{{ Helper::getCategoryFromID($category->category_id) }}</button>
+                                                    <code>{{ Helper::getCategoryFromID($category->category_id) }}</code>
+                                                        @if (!$loop->last)
+                                                            ->
+                                                        @endif
                                                     @endforeach
                                                 </td>
                                                 <td>
                                                     <ul class="table-controls">
+                                                        <li><a href="{{ route('viewSingleProduct', $product->slug) }}" data-toggle="tooltip" data-placement="top" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></a></li>
                                                         <li><a href="{{route('editProduct', $product->id)}}"  data-toggle="tooltip" data-placement="top" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
                                                         <li><a href="{{route('deleteProduct', $product->id)}}" onclick="return confirm('Are you sure to delete this product?')" data-toggle="tooltip" data-placement="top" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li>
                                                     </ul>
@@ -78,8 +80,6 @@
                 </div>
             </div>
         </div>
-        <!--  END CONTENT AREA  -->
-
         <!--  END CONTENT AREA  -->
     </div>
 

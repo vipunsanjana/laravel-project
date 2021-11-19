@@ -27,6 +27,14 @@ class ProductImageController extends Controller
         if (!file_exists($tempPath)) {
             File::makeDirectory($tempPath, 0755, true, true);
         }
+        // generate same size images
+        $image->fit(
+            500,
+            500,
+            function ($constraint) {
+                $constraint->upsize();
+            }
+        );
         $image->save($tempPath . $fileName);
       }
     

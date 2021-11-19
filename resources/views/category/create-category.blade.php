@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="javascript:void(0);">Create New Category</a></li>
 @endsection
 
 @section('content')
@@ -43,12 +43,6 @@
                                         <label for="name">Category Name*</label>
                                         <input type="text" name="name" class="form-control" placeholder="Category name" value="{{old('name')}}" required />
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="email">Category Slug*</label>
-                                        <input type="text" name="slug" class="form-control" placeholder="category-slug" value="{{old('slug')}}" required />
-                                    </div>
-                                </div>
-                                <div class="form-row mb-4">
                                     <div class="form-group col-md-6">
                                         <label for="role">Select parent category*</label>
                                         <select class="selectpicker form-control" style="height: auto !important;" data-live-search="true" name="parent_id" id="parent_id" required>

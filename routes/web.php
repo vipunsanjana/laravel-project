@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,14 +42,12 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     //Categroy Routes
     Route::any('category/create', [CategoryController::class, 'createCategory'])->name('createCategory');
 
-    Route::get('categories', [CategoryController::class, 'allCategories'])->name('allCategories');
+    Route::get('category/all', [CategoryController::class, 'allCategories'])->name('allCategories');
 
     Route::any('category/edit/{id}', [CategoryController::class, 'editCategory'])->name('editCategory');
 
@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('category/delete/{id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
 
     //Products routes
-    Route::get('products', [ProductController::class, 'allProducts'])->name('allProducts');
+    Route::get('product/all', [ProductController::class, 'allProducts'])->name('allProducts');
 
     Route::any('product/create', [ProductController::class, 'createProduct'])->name('createProduct');
 
@@ -64,7 +64,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::any('product/edit/{id}', [ProductController::class, 'editProduct'])->name('editProduct');
 
-    //Image upload routes
+    Route::get('product/view/{slug}', [ProductController::class, 'viewSingleProduct'])->name('viewSingleProduct');
+
+    Route::post('/searching', [SearchController::class, 'search'])->name('searchProduct');
+
+    //Image routes
     Route::post('product-images/{product_id}', [ProductImageController::class, 'store'])->name('images.store');
     Route::post('product-image/remove/{product_id}', [ProductImageController::class, 'remvoeFile'])->name('image.remove');
 

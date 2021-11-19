@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Helper;
 use App\Models\ProductCategory;
 use App\Models\ProductPrice;
 use App\Models\ProductUpload;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+
 
 class ProductController extends Controller
 {
@@ -16,6 +18,12 @@ class ProductController extends Controller
     {
         $products = Product::with('product_prices')->get();
         return view('products.all-products', compact('products'));
+    }
+
+    public function viewSingleProduct($slug){
+        $product = Product::where('slug', $slug)->firstorfail();
+        $product_images = ProductUpload::where('product_id', $product->id)->get();
+        return view('products.single-product', compact('product', 'product_images'));
     }
 
     public function createProduct (Request $request){
@@ -27,21 +35,25 @@ class ProductController extends Controller
         }
         if($request->method()=='POST')
         {
-
             $validator = $request->validate([
                 'name' => 'required',
                 'sku' => 'required|unique:products',
                 'description' => 'required',
+                'short_description' => 'required',
                 'categories'    => "required|array|min:1",
             ]);
+
+            $slug = Helper::generateSlug('Product', $request->name);
 
             $product = Product::create([
                 'name' => $request->name,
                 'sku' => $request->sku,
-                'description' =>$request->description
+                'description' =>$request->description,
+                'short_description' =>$request->short_description,
+                'slug' => $slug,
             ]);
 
-            //add new categories
+            //map products with categories
             foreach($request->categories as $caretory){
                 ProductCategory::create([
                     'product_id' => $product->id,
@@ -79,7 +91,8 @@ class ProductController extends Controller
         {
             $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
             $images = ProductUpload::where('product_id', $id)->get();
-            return view('products.edit-product', compact('product', 'categories','images'));
+            $productCategories = ProductCategory:: where('product_id', $id)->get()->pluck('category_id');
+            return view('products.edit-product', compact('product', 'categories','images','productCategories'));
         }
 
         if($request->method()=='POST')
@@ -87,6 +100,7 @@ class ProductController extends Controller
             $validator = $request->validate([
                 'name' => 'required',
                 'sku' => ['required', Rule::unique('products')->ignore($product)],
+                'short_description' => 'required',
                 'description' => 'required',
                 'categories'    => "required|array|min:1",
             ]);
@@ -95,6 +109,7 @@ class ProductController extends Controller
             $product->name = $request->name;
             $product->sku = $request->sku;
             $product->description = $request->description;
+            $product->short_description =$request->short_description;
             $product->save();
 
             //delete current categories

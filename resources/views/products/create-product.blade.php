@@ -64,46 +64,44 @@
                                             @endif
                                         </select>
                                     </div>
-
                                 </div>
-                                <div class="price_variation" style="border: 1px solid white; padding:5px">
-                                    <div class="form-row mb-4">
-
-                                        <div class="form-group col-md-12">
-                                            <h2>Price Variation</h2>
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <input type="button" value="ADD ROW" class="add_price_row form-control">
-                                        </div>
+                                <div class="form-row mb-4">
+                                    <div class="form-group col-md-12">
+                                        <label for="name">Product Short Description*</label>
+                                        <textarea class="ckeditor form-control" name="short_description"></textarea>
                                     </div>
-                                    <div class="form-row mb-4">
-                                        <div class="form-group col-md-6">
-                                            <table >
-                                                <thead>
-                                                    <tr>
-                                                        <th>Price</th>
-                                                        <th>Quantity</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="price_row">
-                                                        <td><input type="number" name="price[]" class="form-control" placeholder="price" value=""  /></td>
-                                                        <td><input type="number" name="quantity[]" class="form-control" placeholder="quantity" value=""  /></td>
-                                                        <td><input type="button" value="Remove ROW" class="remove_price_row form-control"></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
                                 </div>
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-12">
                                         <label for="name">Product Description*</label>
-                                        <textarea id="ckeditor" class="form-control" name="description"></textarea>
+                                        <textarea class="ckeditor form-control" name="description"></textarea>
                                     </div>
                                 </div>
+                                {{-- Price variations --}}
+                                <h6>Price Variations*</h6>
+                                <div class="table-responsive mb-4 mt-4">
+                                    <div class="form-group col-md-2">
+                                        <input type="button" value="ADD ROW" class="add_price_row form-control">
+                                    </div>
+                                    <table id="products" class="table table-hover non-hover" style="width:97%; margin-left:18px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="price_row">
+                                                <td><input type="number" name="price[]" class="form-control" placeholder="price" value=""  /></td>
+                                                <td><input type="number" name="quantity[]" class="form-control" placeholder="quantity" value=""  /></td>
+                                                <td><input type="button" value="Remove ROW" class="remove_price_row form-control"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- End of proce variations --}}
+                                
 
                                 <div id="submitDiv">
                                     <button type="submit" id="submit" class="btn btn-primary mt-3">Create Product</button>
@@ -122,7 +120,7 @@
 
 @section('css')
     <link href="{{ asset('plugins/notification/snackbar/snackbar.min.css') }}" rel="stylesheet" type="text/css" />
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-select/bootstrap-select.min.css') }}"> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-select/bootstrap-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/multi-select/css/multi-select.css') }}">
     <link href="{{ asset('assets/css/loader.css') }}" rel="stylesheet" type="text/css" />
@@ -131,7 +129,7 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script><!-- Ckeditor -->
+<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script><!-- Ckeditor -->
 <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('plugins/notification/snackbar/snackbar.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/forms/editors.js') }}"></script>
