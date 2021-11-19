@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03b7d5da6c6ae5e15c9af5a0ccd8ab90",
+    "content-hash": "c83d8bc9d1830a2d182b3feac7a9e8d0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1216,6 +1216,62 @@
             "time": "2021-11-17T15:15:08+00:00"
         },
         {
+            "name": "laravel/helpers",
+            "version": "v1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/helpers.git",
+                "reference": "febb10d8daaf86123825de2cb87f789a3371f0ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/helpers/zipball/febb10d8daaf86123825de2cb87f789a3371f0ac",
+                "reference": "febb10d8daaf86123825de2cb87f789a3371f0ac",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.8.0|^6.0|^7.0|^8.0",
+                "php": "^7.1.3|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Dries Vints",
+                    "email": "dries.vints@gmail.com"
+                }
+            ],
+            "description": "Provides backwards compatibility for helpers in the latest Laravel release.",
+            "keywords": [
+                "helpers",
+                "laravel"
+            ],
+            "support": {
+                "source": "https://github.com/laravel/helpers/tree/v1.4.1"
+            },
+            "time": "2021-02-16T15:27:11+00:00"
+        },
+        {
             "name": "laravel/sanctum",
             "version": "v2.12.2",
             "source": {
@@ -1748,6 +1804,65 @@
                 }
             ],
             "time": "2021-09-25T08:23:19+00:00"
+        },
+        {
+            "name": "moirei/laravel-pricing",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moirei/laravel-pricing.git",
+                "reference": "ba204d33a1fa97368d361099242deced5d0191ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moirei/laravel-pricing/zipball/ba204d33a1fa97368d361099242deced5d0191ba",
+                "reference": "ba204d33a1fa97368d361099242deced5d0191ba",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^7.0|^8.0",
+                "laravel/helpers": "^1.4",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.22",
+                "pestphp/pest": "^1.20",
+                "pestphp/pest-plugin-laravel": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MOIREI\\Pricing\\": "src",
+                    "MOIREI\\Pricing\\Tests\\": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Augustus",
+                    "email": "augustusokoye@moirei.com"
+                }
+            ],
+            "description": "Easily manage complex pricing.",
+            "homepage": "https://moirei.github.io/laravel-pricing",
+            "keywords": [
+                "ecommerce",
+                "graduated",
+                "graduated pricing",
+                "laravel",
+                "moirei",
+                "pricing",
+                "volume",
+                "volume pricing"
+            ],
+            "support": {
+                "issues": "https://github.com/moirei/laravel-pricing/issues",
+                "source": "https://github.com/moirei/laravel-pricing/tree/1.1.1"
+            },
+            "time": "2021-10-25T11:48:08+00:00"
         },
         {
             "name": "monolog/monolog",

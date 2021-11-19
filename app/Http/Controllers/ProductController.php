@@ -9,6 +9,7 @@ use App\Models\ProductUpload;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+
 class ProductController extends Controller
 {
     public function allProducts()
@@ -27,7 +28,6 @@ class ProductController extends Controller
         if($request->method()=='POST')
         {
 
-            // dd($request);
             $validator = $request->validate([
                 'name' => 'required',
                 'sku' => 'required|unique:products',
