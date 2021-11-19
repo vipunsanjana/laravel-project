@@ -65,6 +65,40 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="price_variation" style="border: 1px solid white; padding:5px">
+                                    <div class="form-row mb-4">
+
+                                        <div class="form-group col-md-12">
+                                            <h2>Price Variation</h2>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <input type="button" value="ADD ROW" class="add_price_row form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-4">
+                                        <div class="form-group col-md-6">
+                                            <table >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Price</th>
+                                                        <th>Quantity</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ( $product->product_prices as $item )
+                                                    <tr class="price_row">
+                                                        <td><input type="number" name="price[]" class="form-control" placeholder="price" value="{{ $item->price }}"  /></td>
+                                                        <td><input type="number" name="quantity[]" class="form-control" placeholder="quantity" value="{{ $item->quantity }}"  /></td>
+                                                        <td><input type="button" value="Remove ROW" class="remove_price_row form-control"></td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-12">
                                         <label for="name">Product Description*</label>
@@ -80,7 +114,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div id="submitDiv">
                                     <button type="submit" id="submit" class="btn btn-primary mt-3">Update Product</button>
                                 </div>
@@ -91,21 +125,21 @@
                                     <label for="name">Product Images</label>
                                     <div class="d-flex">
                                         <div class="usr-img-frame mr-2">
-                                            
+
                                                 @foreach ($images as $image)
                                                     <img alt="avatar" class="img-fluid " src="{{ asset($image->file_path) }}">
                                                 @endforeach
-                                        
+
                                         </div>
                                     </div>
                                 </div>
                             @endif
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
         </div>
         <!--  END CONTENT AREA  -->
     </div>
@@ -122,7 +156,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    
+
 @endsection
 
 @section('js')
@@ -143,7 +177,7 @@
       },
       addRemoveLinks: true,
       removedfile: function(file)
-      { 
+      {
         jQuery.noConflict();
         var name = file.upload.filename;
         $.ajax({
@@ -167,6 +201,23 @@
   </script>
 <script>
     $(document).ready(function(){
+
+        $('.add_price_row').click(function(){
+
+        $element = '<tr class="price_row">' +
+                        '<td><input type="number" name="price[]" class="form-control" placeholder="price" value=""  /></td>' +
+                        '<td><input type="number" name="quantity[]" class="form-control" placeholder="quantity" value=""  /></td>' +
+                        '<td><input type="button" value="Remove ROW" class="remove_price_row form-control"></td>' +
+                    '</tr>';
+
+        $("tbody").append($element);
+        });
+
+        $(document).on('click', '.remove_price_row' ,function(){
+        console.log(3);
+        $(this).closest('tr').remove();
+        });
+
         var success = '{{ Session::get('success')}}';
         if(success)
         {

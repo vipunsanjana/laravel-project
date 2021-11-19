@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductCategory;
+use App\Models\ProductPrice;
 use App\Models\ProductUpload;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -13,7 +14,7 @@ class ProductController extends Controller
 {
     public function allProducts()
     {
-        $products = Product::all();
+        $products = Product::with('product_prices')->get();
         return view('products.all-products', compact('products'));
     }
 
@@ -27,7 +28,6 @@ class ProductController extends Controller
         if($request->method()=='POST')
         {
 
-            // dd($request);
             $validator = $request->validate([
                 'name' => 'required',
                 'sku' => 'required|unique:products',
@@ -47,6 +47,18 @@ class ProductController extends Controller
                     'product_id' => $product->id,
                     'category_id' => $caretory,
                 ]);
+            }
+
+            //add pricing
+            foreach($request->price as $key => $value){
+
+                if($value != "" && $request->quantity[$key] != ""){
+                    ProductPrice::create([
+                        'product_id' => $product->id,
+                        'price' => $value,
+                        'quantity' => $request->quantity[$key],
+                    ]);
+                }
             }
 
             return redirect()->back()->with('success', 'Category has been created successfully.');
@@ -78,7 +90,7 @@ class ProductController extends Controller
                 'description' => 'required',
                 'categories'    => "required|array|min:1",
             ]);
-            
+
 
             $product->name = $request->name;
             $product->sku = $request->sku;
@@ -95,6 +107,23 @@ class ProductController extends Controller
                     'category_id' => $caretory,
                 ]);
             }
+
+            //delete current prices
+            ProductPrice::where('product_id', $id)->delete();
+
+            //add pricing
+            foreach($request->price as $key => $value){
+
+                if($value != "" && $request->quantity[$key] != ""){
+                    ProductPrice::create([
+                        'product_id' => $product->id,
+                        'price' => $value,
+                        'quantity' => $request->quantity[$key],
+                    ]);
+                }
+            }
+
+
             return redirect()->back()->with('success', 'Product has been updated successfully.');
         }
     }
