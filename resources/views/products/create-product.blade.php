@@ -67,15 +67,47 @@
                                 </div>
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-12">
-                                        <label for="name">Product Description*</label>
-                                        <textarea id="ckeditor" class="form-control" name="description"></textarea>
+                                        <label for="name">Product Short Description*</label>
+                                        <textarea class="ckeditor form-control" name="short_description"></textarea>
                                     </div>
                                 </div>
+                                <div class="form-row mb-4">
+                                    <div class="form-group col-md-12">
+                                        <label for="name">Product Description*</label>
+                                        <textarea class="ckeditor form-control" name="description"></textarea>
+                                    </div>
+                                </div>
+                                {{-- Price variations --}}
+                                <h6>Price Variations*</h6>
+                                <div class="table-responsive mb-4 mt-4">
+                                    <div class="form-group col-md-2">
+                                        <input type="button" value="ADD ROW" class="add_price_row form-control">
+                                    </div>
+                                    <table id="products" class="table table-hover non-hover" style="width:97%; margin-left:18px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="price_row">
+                                                <td><input type="number" name="price[]" class="form-control" placeholder="price" value=""  /></td>
+                                                <td><input type="number" name="quantity[]" class="form-control" placeholder="quantity" value=""  /></td>
+                                                <td><input type="button" value="Remove ROW" class="remove_price_row form-control"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- End of proce variations --}}
                                 
+
                                 <div id="submitDiv">
                                     <button type="submit" id="submit" class="btn btn-primary mt-3">Create Product</button>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -88,22 +120,39 @@
 
 @section('css')
     <link href="{{ asset('plugins/notification/snackbar/snackbar.min.css') }}" rel="stylesheet" type="text/css" />
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-select/bootstrap-select.min.css') }}"> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-select/bootstrap-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/multi-select/css/multi-select.css') }}">
     <link href="{{ asset('assets/css/loader.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('assets/js/loader.js') }}"></script>
-    
+
 @endsection
 
 @section('js')
-<script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script><!-- Ckeditor -->
+<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script><!-- Ckeditor -->
 <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('plugins/notification/snackbar/snackbar.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/forms/editors.js') }}"></script>
 <script src="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
 <script>
     $(document).ready(function(){
+
+        $('.add_price_row').click(function(){
+
+            $element = '<tr class="price_row">' +
+                            '<td><input type="number" name="price[]" class="form-control" placeholder="price" value=""  /></td>' +
+                            '<td><input type="number" name="quantity[]" class="form-control" placeholder="quantity" value=""  /></td>' +
+                            '<td><input type="button" value="Remove ROW" class="remove_price_row form-control"></td>' +
+                        '</tr>';
+
+            $("tbody").append($element);
+        });
+
+        $(document).on('click', '.remove_price_row' ,function(){
+            console.log(3);
+            $(this).closest('tr').remove();
+        });
+
         var success = '{{ Session::get('success')}}';
         if(success)
         {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -10,6 +11,7 @@ class CategoryController extends Controller
 {
     public function createCategory (Request $request){
         $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
+        
         if($request->method()=='GET')
         {
             return view('category.create-category', compact('categories'));
@@ -18,13 +20,14 @@ class CategoryController extends Controller
         {
             $validator = $request->validate([
                 'name'      => 'required',
-                'slug'      => 'required|unique:categories',
                 'parent_id' => 'nullable|numeric'
             ]);
 
+            $slug = Helper::generateSlug('Category', $request->name);
+
             Category::create([
                 'name' => $request->name,
-                'slug' => $request->slug,
+                'slug' => $slug,
                 'parent_id' =>$request->parent_id == 0 ? null : $request->parent_id
             ]);
 
@@ -51,7 +54,6 @@ class CategoryController extends Controller
         {
             $validator = $request->validate([
                 'name'     => 'required',
-                'slug' => ['required', Rule::unique('categories')->ignore($category)],
                 'parent_id'=> 'nullable|numeric'
             ]);
             if($request->name != $category->name || $request->parent_id != $category->parent_id)
@@ -76,7 +78,6 @@ class CategoryController extends Controller
 
             $category->name = $request->name;
             $category->parent_id = $request->parent_id;
-            $category->slug = $request->slug;
             $category->save();
             return redirect()->back()->with('success', 'Category has been updated successfully.');
         }
@@ -97,6 +98,6 @@ class CategoryController extends Controller
             }
         }
         $category->delete();
-        return redirect()->back()->with('delete', 'Category has been deleted successfully.');
+        return redirect()->back()->with('success', 'Category deleted successfully.');
     }
 }

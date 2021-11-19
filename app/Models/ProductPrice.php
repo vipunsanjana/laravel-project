@@ -1,16 +1,16 @@
 <?php
 
 namespace App\Models;
-use App\Models\Product;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
 
-class ProductUpload extends Model
+class ProductPrice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'file_name','file_path','file_type'];
+    protected $fillable = ['product_id', 'price', 'quantity'];
 
     public function product(){
         return $this->belongsTo(Product::class);
