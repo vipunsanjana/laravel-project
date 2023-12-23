@@ -40,39 +40,4 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::group(['middleware' => ['auth', 'verified']], function () {
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    //Categroy Routes
-    Route::any('category/create', [CategoryController::class, 'createCategory'])->name('createCategory');
-
-    Route::get('category/all', [CategoryController::class, 'allCategories'])->name('allCategories');
-
-    Route::any('category/edit/{id}', [CategoryController::class, 'editCategory'])->name('editCategory');
-
-    Route::delete('categories/delete/{category_id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
-
-    Route::get('category/delete/{id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
-
-    //Products routes
-    Route::get('product/all', [ProductController::class, 'allProducts'])->name('allProducts');
-
-    Route::any('product/create', [ProductController::class, 'createProduct'])->name('createProduct');
-
-    Route::get('product/delete/{product_id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
-
-    Route::any('product/edit/{id}', [ProductController::class, 'editProduct'])->name('editProduct');
-
-    Route::get('product/view/{slug}', [ProductController::class, 'viewSingleProduct'])->name('viewSingleProduct');
-
-    Route::post('/searching', [SearchController::class, 'search'])->name('searchProduct');
-
-    //Image routes
-    Route::post('product-images/{product_id}', [ProductImageController::class, 'store'])->name('images.store');
-    Route::post('product-image/remove/{product_id}', [ProductImageController::class, 'remvoeFile'])->name('image.remove');
-
-
-});
-
 require __DIR__.'/auth.php';
