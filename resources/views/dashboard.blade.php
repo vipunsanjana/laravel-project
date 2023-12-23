@@ -34,33 +34,12 @@
                                     <div class="col-lg-12">
                                         <input type="text" class="form-control" placeholder="Search..." onkeyup="search_data(this.value, 'result');">
                                         <div id="results">
-                                            @include('products.search-results')
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    @if ($products->count())
-                                        @foreach($products as $product)
-                                            <div class="card col-lg-3">
-                                                <img class="card-img-top" src="{{ asset(Helper::getProductMainImage($product->id)) }}" alt="Card image cap">
-                                                <div class="body">
-                                                    <h4 class="card-title">{{ $product->name }}</h4>
-                                                    <div class="card-subtitle">
-                                                        @foreach ($product->categories as $key => $category) 
-                                                            {{ Helper::getCategoryFromID($category->category_id) }}
-                                                            @if (!$loop->last)
-                                                                /
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                    <p class="card-text" style="margin-bottom: 75px">SKU: {{ $product->sku }}</p>
-                                                    <a href="{{ route('viewSingleProduct', $product->slug) }}" class="btn btn-primary">View Product</a>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    @else 
-                                        <p style="text-align: center">Products are not availble yet</p>
-                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>
@@ -90,22 +69,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
     <script>
-        function search_data(search_value) {
-            jQuery.noConflict();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                }
-            });
-            jQuery.ajax({
-                url: "{{ route('searchProduct') }}",
-                type: "POST",
-                data: { "_token": "{{ csrf_token() }}", "search_value": search_value},
-            }).done(function(response){
-                $("#results").show();
-                $('#results').html(response); // put the returning html in the 'results' div
-            });
-        }
+
 
         $(document).ready(function(){
             $("#results").hide();
