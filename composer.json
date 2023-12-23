@@ -12,7 +12,8 @@
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "moirei/laravel-pricing": "^1.1"
+        "moirei/laravel-pricing": "^1.1",
+        "spatie/laravel-permission": "^6.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -24,10 +24,10 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="products" data-parent="#accordionExample">
                     <li>
-                        <a href="{{ route('allProducts') }}"> All Products </a>
+                        <a href=""> All Products </a>
                     </li>
                     <li>
-                        <a href="{{ route('createProduct') }}"> Add New product </a>
+                        <a href=""> Add New product </a>
                     </li>
                 </ul>
             </li>
@@ -43,10 +43,10 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="categories" data-parent="#accordionExample">
                     <li>
-                        <a href="{{ route('allCategories') }}"> All Categories </a>
+                        <a href=""> All Categories </a>
                     </li>
                     <li>
-                        <a href="{{ route('createCategory') }}"> Add New Category </a>
+                        <a href=""> Add New Category </a>
                     </li>
                 </ul>
             </li>
