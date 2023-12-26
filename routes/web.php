@@ -38,4 +38,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+Route::get('/lock-screen','\App\Http\Controllers\Auth\LockScreenController@lockScreen')->name('lockScreen');
+
 require __DIR__.'/auth.php';
